@@ -24,7 +24,7 @@ $ bower install --save app-cookie-document
 Or clone this repository inside your project folder using Git:
 
 ```shell
-$ git clone https://github.com/CityOfAL/polymer-cookie.git
+$ git clone https://github.com/CityOfAuburnAL/polymer-cookie.git
 ```
 
 ## Properties
@@ -182,9 +182,9 @@ The expires get and _setCookie is largely based on their project.
 
 ## Changelog
 
-Changelog available [here](https://github.com/CityOfAL/polymer-cookie/blob/master/CHANGELOG.md)
+Changelog available [here](https://github.com/CityOfAuburnAL/polymer-cookie/blob/master/CHANGELOG.md)
 
 ## License
 
-[MIT License](https://github.com/CityOfAL/polymer-cookie/blob/master/LICENSE)
+[MIT License](https://github.com/CityOfAuburnAL/polymer-cookie/blob/master/LICENSE)
 © City of Auburn

@@ -7,7 +7,7 @@ Cookie Web Component for Polymer extending app-storage
 ```html
 <app-cookie-document
   key="test_cookie"
-  data="hello world"
+  data="hello world!"
   time="2"
   format="h">
 </app-cookie-document>

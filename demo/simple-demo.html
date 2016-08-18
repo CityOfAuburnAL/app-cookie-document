@@ -1,0 +1,15 @@
+﻿<dom-module id="simple-demo">
+    <style>
+
+    </style>
+
+    <form>
+        <input value="{{testCookieVal::value}}" type="text" placeholder="Update Value..." />
+    </form>
+
+    <app-cookie-document name="test_cookie"
+                         value="{{testCookieVal}}"
+                         time="1"
+                         format="m">
+    </app-cookie-document>
+</dom-module>

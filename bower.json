@@ -1,0 +1,32 @@
+{
+  "name": "app-cookie-document",
+  "homepage": "https://github.com/CityOfAL",
+  "authors": [
+    "Chris Griffin <chris.sgriffin@gmail.com>"
+  ],
+  "description": "Cookie Web Component for Polymer extending app-storage",
+  "main": "app-cookie-document.html",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "app-storage",
+    "cookie"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CityOfAl/polymer-cookie.git"
+  },
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "app-storage": "PolymerElements/app-storage#^1.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "*"
+  }
+}

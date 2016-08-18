@@ -23,8 +23,8 @@
     "url": "https://github.com/CityOfAl/polymer-cookie.git"
   },
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.0",
-    "app-storage": "PolymerElements/app-storage#^1.0.0"
+    "polymer": "Polymer/polymer#^1.6.1",
+    "app-storage": "PolymerElements/app-storage#^0.9.4"
   },
   "devDependencies": {
     "web-component-tester": "*"

@@ -1,15 +1,21 @@
 ﻿<dom-module id="simple-demo">
-    <style>
+    <template>
+        <style>
+        </style>
 
-    </style>
+        <form>
+            <input value="{{testCookieVal::input}}" type="text" placeholder="Update Value..." />
+        </form>
 
-    <form>
-        <input value="{{testCookieVal::value}}" type="text" placeholder="Update Value..." />
-    </form>
-
-    <app-cookie-document name="test_cookie"
-                         value="{{testCookieVal}}"
-                         time="1"
-                         format="m">
-    </app-cookie-document>
+        <app-cookie-document key="test_cookie"
+                             data="{{testCookieVal}}"
+                             time="1"
+                             format="m">
+        </app-cookie-document>
+    </template>
 </dom-module>
+<script>
+    Polymer({
+        is: 'simple-demo'
+    });
+</script>

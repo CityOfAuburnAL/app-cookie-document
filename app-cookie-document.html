@@ -19,233 +19,234 @@ This will prepare a cookie named test_cookie that will expires after 2 weeks
 -->
 
 <dom-module id="app-cookie-document">
-  <script>
-    Polymer({
-        is: 'app-cookie-document',
-        behaviors: [
-            Polymer.AppStorageBehavior
-        ],
-      properties: {
-        /**
-         * The cookie name
-         *
-         * @type {String}
-         */
-        key: {
-          type: String,
-          notify: true,
-          reflectToAttribute: true
-        },
-          /**
-         * If true, the data will automatically be cleared from storage when
-         * the page session ends (i.e. when the user has navigated away from
-         * the page).
-         */
-        sessionOnly: Boolean,
+    <script>
+        Polymer({
+            is: 'app-cookie-document',
+            behaviors: [
+                Polymer.AppStorageBehavior
+            ],
+            properties: {
+                /**
+                 * The cookie name
+                 *
+                 * @type {String}
+                 */
+                key: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true
+                },
+                /**
+                 * If true, the data will automatically be cleared from storage when
+                 * the page session ends (i.e. when the user has navigated away from
+                 * the page).
+                 */
+                sessionOnly: Boolean,
 
-        /**
-         * The cookie domain
-         *
-         * @type {String}
-         */
-        domain: String,
+                /**
+                 * The cookie domain
+                 *
+                 * @type {String}
+                 */
+                domain: String,
 
-        /**
-         * The cookie path
-         *
-         * @type {String}
-         */
-        path: {
-          type: String,
-          value: ''
-        },
+                /**
+                 * The cookie path
+                 *
+                 * @type {String}
+                 */
+                path: {
+                    type: String,
+                    value: ''
+                },
 
-        /**
-         * The expiration time, in days/hours/minutes/seconds as set by format
-         *
-         * @type {Number}
-         */
-        time: {
-          type: Number,
-          value: 1
-        },
+                /**
+                 * The expiration time, in days/hours/minutes/seconds as set by format
+                 *
+                 * @type {Number}
+                 */
+                time: {
+                    type: Number,
+                    value: 1
+                },
 
-        /**
-         * Contains the expiration format
-         *
-         * @type {String} optional
-         *       Default :'d'
-         *       's' : seconds
-         *       'm' : minutes
-         *       'h' : hours
-         *       'd' : days
-         */
-        format: {
-          type: String,
-          value: 'd'
-        },
+                /**
+                 * Contains the expiration format
+                 *
+                 * @type {String} optional
+                 *       Default :'d'
+                 *       's' : seconds
+                 *       'm' : minutes
+                 *       'h' : hours
+                 *       'd' : days
+                 */
+                format: {
+                    type: String,
+                    value: 'd'
+                },
 
-        /**
-         * Using the Secure option you can tell the browser (or other http clients)
-         * to only send the cookie over SSL connections
-         *
-         * @type {Boolean}
-         */
-        secure: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        },
+                /**
+                 * Using the Secure option you can tell the browser (or other http clients)
+                 * to only send the cookie over SSL connections
+                 *
+                 * @type {Boolean}
+                 */
+                secure: {
+                    type: Boolean,
+                    value: function() {
+                        return document.location.hostname !== 'localhost';
+                    }
+                },
 
-        /**
-         * HttpOnly
-         *
-         * @type {Boolean}
-         */
-        httpOnly: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        }
-      },
-        /**
-       * @override
-       */
-      getStoredValue: function (path) {
-          var value;
-          if (this.key != null) {
-              try {
-                  value = this.__parseValueFromStorage();
-                  if (value != null) {
-                      value = this.get(path, {
-                          data: value
-                      });
-                  } else {
-                      value = undefined;
-                  }
-              } catch (e) {
-                  return Promise.reject(e);
-              }
-          }
-          return Promise.resolve(value);
-      },
+                /**
+                 * HttpOnly
+                 *
+                 * @type {Boolean}
+                 */
+                httpOnly: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                }
+            },
+            /**
+             * @override
+             */
+            getStoredValue: function(path) {
+                var value;
+                if (this.key != null) {
+                    try {
+                        value = this.__parseValueFromStorage();
+                        if (value != null) {
+                            value = this.get(path, {
+                                data: value
+                            });
+                        } else {
+                            value = undefined;
+                        }
+                    } catch (e) {
+                        return Promise.reject(e);
+                    }
+                }
+                return Promise.resolve(value);
+            },
 
-        /**
-       * @override
-       */
-      get isNew() {
-          return !this.key;
-      },
-        /**
-       * Stores a value at the given key, and if successful, updates this.key.
-       *
-       * @override
-       * @param {string} key The new key to use.
-       */
-      save: function (key) {
-          try {
-              this.__setStorageValue(key, this.data);
-          } catch (e) {
-              return Promise.reject(e);
-          }
-          this.key = key;
-          return Promise.resolve();
-      },
+            /**
+             * @override
+             */
+            get isNew() {
+                return !this.key;
+            },
+            /**
+             * Stores a value at the given key, and if successful, updates this.key.
+             *
+             * @override
+             * @param {string} key The new key to use.
+             */
+            save: function(key) {
+                try {
+                    this.__setStorageValue(key, this.data);
+                } catch (e) {
+                    return Promise.reject(e);
+                }
+                this.key = key;
+                return Promise.resolve();
+            },
 
-        /**
-         * @override
-         */
-      destroy: function () {
-          try {
-              var output = this.key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;';
+            /**
+             * @override
+             */
+            destroy: function() {
+                try {
+                    var output = this.key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;';
 
-              if (this.domain) {
-                  output += "domain=" + this.domain;
-              }
+                    if (this.domain) {
+                        output += "domain=" + this.domain;
+                    }
 
-              document.cookie = output;
-          } catch (e) {
-              return Promise.reject(e);
-          }
+                    document.cookie = output;
+                } catch (e) {
+                    return Promise.reject(e);
+                }
 
-          return Promise.resolve();
-      },
-        /**
-       * @override
-       */
-      setStoredValue: function(path, value) {
-          if (this.key != null) {
-              try {
-                  this.__setStorageValue(this.key, this.data);
-              } catch (e) {
-                  return Promise.reject(e);
-              }
-              this.fire('app-local-storage-changed', this, {
-                  node: window.top
-              });
-          }
-          return Promise.resolve(value);
-      },
+                return Promise.resolve();
+            },
+            /**
+             * @override
+             */
+            setStoredValue: function(path, value) {
+                if (path != null) {
+                    try {
+                        this.__setStorageValue(path, value);
+                    } catch (e) {
+                        return Promise.reject(e);
+                    }
+                    this.fire('app-cookie-storage-changed', this, {
+                        node: window.top
+                    });
+                }
+                return Promise.resolve(value);
+            },
 
-      /**
-       * Read the cookie value
-       * @return {String} Return the cookie value in a string format
-       */
-      __parseValueFromStorage: function () {
-          try {
-              var reg = new RegExp('(?:(?:^|.*;\\s*)' +
-                  this.key +
-                  '\\s*\\=\\s*([^;]*).*$)|^.*$');
+            /**
+             * Read the cookie value
+             * @return {String} Return the cookie value in a string format
+             */
+            __parseValueFromStorage: function() {
+                try {
+                    var reg = new RegExp('(?:(?:^|.*;\\s*)' +
+                        this.key +
+                        '\\s*\\=\\s*([^;]*).*$)|^.*$');
 
-              return document.cookie.replace(reg, '$1');
-          } catch (e) {
-              console.error('Failed to parse value from storage for', this.key);
-          }
-      },
-      _setCookie: function (key, value, expires) {
-          return [
-            key, '=', value,
-            (expires ? ';expires=' + expires : ''),
-            this.path && ';path=' + this.path,
-            this.domain && ";domain=" + this.domain,
-            this.secure ? ';secure' : '',
-            this.httpOnly ? ';HttpOnly' : '',
-            ';'
-          ].join('');
-      },
-      get expires() {
-          if (this.sessionOnly) return undefined;
+                    return document.cookie.replace(reg, '$1');
+                } catch (e) {
+                    console.error('Failed to parse value from storage for', this.key);
+                }
+            },
+            _setCookie: function(key, value, expires) {
+                return [
+                    key, '=', value,
+                    expires ? ';expires=' + expires : '',
+                    this.path && ';path=' + this.path,
+                    this.domain && ";domain=" + this.domain,
+                    this.secure ? ';secure' : '',
+                    this.httpOnly ? ';HttpOnly' : '',
+                    ';'
+                ].join('');
+            },
+            get expires() {
+                if (this.sessionOnly) return undefined;
 
-          var date = new Date();
-          var expires;
+                var date = new Date();
+                var expires;
 
-          switch (this.format) {
-              case 'd':
-                  date.setTime(date.getTime() +
-                  this.time * 1000 * 24 * 60 * 60);
-                  break;
-              case 'h':
-                  date.setTime(date.getTime() +
-                  this.time * 1000 * 60 * 60);
-                  break;
-              case 'm':
-                  date.setTime(date.getTime() +
-                  this.time * 1000 * 60);
-                  break;
-              default:
-                  date.setTime(date.getTime() +
-                  this.time * 1000);
-                  break;
-          }
+                switch (this.format) {
+                    case 'd':
+                        date.setTime(date.getTime() +
+                            this.time * 1000 * 24 * 60 * 60);
+                        break;
+                    case 'h':
+                        date.setTime(date.getTime() +
+                            this.time * 1000 * 60 * 60);
+                        break;
+                    case 'm':
+                        date.setTime(date.getTime() +
+                            this.time * 1000 * 60);
+                        break;
+                    default:
+                        date.setTime(date.getTime() +
+                            this.time * 1000);
+                        break;
+                }
 
-          return date.toUTCString();
-      },
-        /**
-       * Create a cookie
-       */
-      __setStorageValue: function (key, value) {
-          document.cookie = this._setCookie(key, value, this.expires);
-      }
-    });
-  </script>
+                return date.toUTCString();
+            },
+            /**
+             * Create a cookie
+             */
+            __setStorageValue: function(key, value) {
+                document.cookie = this._setCookie(key, value, this.expires);
+            }
+        });
+    </script>
 </dom-module>

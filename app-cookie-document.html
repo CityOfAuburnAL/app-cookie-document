@@ -94,7 +94,7 @@ This will prepare a cookie named test_cookie that will expires after 2 weeks
                 secure: {
                     type: Boolean,
                     value: function() {
-                        return document.location.hostname !== 'localhost';
+                        return document.location.hostname.indexOf('localhost') === -1;
                     }
                 },
 

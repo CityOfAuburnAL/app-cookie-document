@@ -158,13 +158,7 @@ This will prepare a cookie named test_cookie that will expires after 2 weeks
              */
             destroy: function() {
                 try {
-                    var output = this.key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;';
-
-                    if (this.domain) {
-                        output += "domain=" + this.domain;
-                    }
-
-                    document.cookie = output;
+                    document.cookie = this._setCookie(this.key, '', 'Thu, 01 Jan 1970 00:00:01 GMT');
                 } catch (e) {
                     return Promise.reject(e);
                 }
